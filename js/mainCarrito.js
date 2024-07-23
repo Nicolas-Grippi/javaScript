@@ -14,7 +14,7 @@ function recorrerCarrito() {
             <td><img src="images/${producto.imagen}" alt="${producto.nombre}" width="48"></td>
             <td class="align-middle">${producto.nombre}</td>
             <td class="text-center align-middle"><span class="text-danger">$${producto.precio} ARS</span></td>
-            <td class="text-end align-middle"><button class="btn btn-danger btn-sm" onclick="eliminarProducto(${producto.id});">Eliminar [-] <i class="bi bi-trash"></i></button></td>
+            <td class="text-end align-middle"><button class="btn btn-danger btn-sm" onclick="eliminarProducto(${producto.id});">Eliminar <i class="bi bi-trash"></i></button></td>
             </tr>`;
         }
 
@@ -30,4 +30,3 @@ document.getElementById("contenido").innerHTML = contenidoHTML;
 }
 
 recorrerCarrito();
-recorrerBotonCarrito();

@@ -6,8 +6,7 @@ const camisetas = [
     { id: 5, nombre: "España", precio: 70000, imagen: "espana.jpg" },
     { id: 6, nombre: "Italia", precio: 65000, imagen: "italia.jpg"},
     { id: 7, nombre: "Portugal", precio: 60000, imagen: "portugal.jpg" },
-    { id: 8, nombre: "Colombia", precio: 60000, imagen: "colombia.jpg" }
-    
+    { id: 8, nombre: "Colombia", precio: 60000, imagen: "colombia.jpg" } 
 ]
 
 

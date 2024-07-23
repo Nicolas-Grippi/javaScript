@@ -1,10 +1,10 @@
-function recorrerCamisetas(camisetas) {
+function recorrerCamisetas() {
     let contenidoHTML = "";
 
     for (const producto of camisetas) {
         contenidoHTML += `<div class="col-md-3">
             <div class="card border-0">
-                <a href="producto.html" onclick="guardarProductoLS(${producto.id});">
+                <a href="producto.html" onclick="guardarProducto(${producto.id});">
                     <img src="images/${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
                 </a>
                 <div class="card-body text-center">
@@ -17,5 +17,6 @@ function recorrerCamisetas(camisetas) {
     document.getElementById("contenido").innerHTML = contenidoHTML;
 }
 
-recorrerCamisetas(camisetas);
+recorrerCamisetas();
 recorrerBotonCarrito();
+
