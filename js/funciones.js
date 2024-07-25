@@ -16,7 +16,16 @@ function agregarProducto(id) {
     carrito.push(producto);
     guardarCarrito(carrito);
     recorrerBotonCarrito();
-    alert("El producto #" + id + " se ha agregado correctamente!");
+    Swal.fire({
+        position: "bottom",
+        icon: "success",
+        title: "El producto #" + id + " se ha agregado correctamente!",
+        showConfirmButton: false,
+        timer: 1500,
+        width:"440px",
+        heightAuto: false
+      });
+  
 }
 
 function eliminarProducto(id) {
@@ -25,8 +34,27 @@ function eliminarProducto(id) {
     guardarCarrito(carritoActualizado);
     recorrerCarrito();
     recorrerBotonCarrito();
-    alert("El producto #" + id + " se ha eliminado correctamente!");
-}
+
+    Swal.fire({
+        title: "Esta seguro que desea eliminar el producto?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+         cancelButtonText: "No, cancelar",
+        confirmButtonText: "Si, eliminarlo"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Eliminado",
+            text: "El producto ha sido eliminado correctamente!",
+            icon: "success"
+          });
+        }
+      });
+    }
+
+ 
 
 function recorrerBotonCarrito() {
     let total = totalCamisetas();
@@ -51,7 +79,16 @@ function vaciarCarrito() {
     localStorage.removeItem("carrito");
     recorrerCarrito();
     recorrerBotonCarrito();
-    alert("El carrito se ha vaciado correctamente!");
+    Swal.fire({
+        position: "bottom",
+        icon: "error",
+        title: "El carrito se ha vaciado correctamente!",
+        showConfirmButton: false,
+        timer: 1500,
+        width:"440px",
+        heightAuto: false
+      });
+   
 }
 
 function cargarProducto() {
