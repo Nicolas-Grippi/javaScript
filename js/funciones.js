@@ -30,30 +30,39 @@ function agregarProducto(id) {
 
 function eliminarProducto(id) {
     const carrito = cargarCarrito();
-    const carritoActualizado = carrito.filter(item => item.id != id);
-    guardarCarrito(carritoActualizado);
-    recorrerCarrito();
-    recorrerBotonCarrito();
+    const index = carrito.findIndex(item => item.id === id);
+    
+    if (index !== -1) {
+        carrito.splice(index, 1); 
+        guardarCarrito(carrito);
+        recorrerCarrito();
+        recorrerBotonCarrito();
 
-    Swal.fire({
-        title: "Esta seguro que desea eliminar el producto?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        cancelButtonText: "No, cancelar",
-        confirmButtonText: "Si, eliminarlo"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: "Eliminado",
-                text: "El producto ha sido eliminado correctamente!",
-                icon: "success"
-            });
-        }
-    });
+        Swal.fire({
+            title: "Esta seguro que desea eliminar el producto?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "No, cancelar",
+            confirmButtonText: "Si, eliminarlo"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Eliminado",
+                    text: "El producto ha sido eliminado correctamente!",
+                    icon: "success"
+                });
+            }
+        });
+    } else {
+        Swal.fire({
+            title: "Error",
+            text: "El producto no se encontró en el carrito.",
+            icon: "error"
+        });
+    }
 }
-
 
 
 function recorrerBotonCarrito() {
@@ -101,3 +110,47 @@ function cargarProducto() {
 function guardarProducto(id) {
     localStorage.setItem("producto", JSON.stringify(id));
 }
+
+
+//Aca elegi este consumo de API externa la cual me da la hora en tiempo real
+
+async function obtenerHora() {
+    try {
+        const respuesta = await fetch('http://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires');
+        const datos = await respuesta.json();
+        const dateTime = new Date(datos.datetime);
+        const horas = dateTime.getHours().toString().padStart(2, '0');
+        const minutos = dateTime.getMinutes().toString().padStart(2, '0');
+        const segundos = dateTime.getSeconds().toString().padStart(2, '0');
+        document.getElementById('reloj').textContent = `${horas}:${minutos}:${segundos}`;
+    } catch (error) {
+        console.error('Error al obtener la hora:', error);
+        document.getElementById('reloj').textContent = 'Error al obtener la hora';
+    }
+}
+
+function actualizarReloj() {
+    obtenerHora();
+    setInterval(obtenerHora, 1000); 
+}
+document.addEventListener('DOMContentLoaded', (event) => {
+    const reloj = document.getElementById('reloj');
+    const container = document.getElementById('reloj-container');
+
+   
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'center';
+    container.style.height = '80px';
+
+    reloj.style.fontSize = '2em';
+    reloj.style.fontWeight = 'bold';
+    reloj.style.margin = '20px';
+    reloj.style.padding = '10px 50px';
+    reloj.style.border = '2px solid #000';
+    reloj.style.borderRadius = '10px';
+    reloj.style.backgroundColor = '#f0f0f0';
+    reloj.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.1)';
+
+    actualizarReloj(); 
+});

@@ -1,5 +1,5 @@
 function recorrerCarrito() {
-    const carrito = cargarCarrito()
+    const carrito = cargarCarrito();
     let contenidoHTML;
 
     if (totalCamisetas() > 0) {
@@ -10,12 +10,17 @@ function recorrerCarrito() {
         </tr>`;
 
         for (const producto of carrito) {
-            contenidoHTML += `<tr>
-            <td><img src="images/${producto.imagen}" alt="${producto.nombre}" width="48"></td>
-            <td class="align-middle">${producto.nombre}</td>
-            <td class="text-center align-middle"><span class="text-danger">$${producto.precio} ARS</span></td>
-            <td class="text-end align-middle"><button class="btn btn-danger btn-sm" onclick="eliminarProducto(${producto.id});">Eliminar <i class="bi bi-trash"></i></button></td>
-            </tr>`;
+            
+            if (producto && producto.imagen) {
+                contenidoHTML += `<tr>
+                <td><img src="images/${producto.imagen}" alt="${producto.nombre}" width="48"></td>
+                <td class="align-middle">${producto.nombre}</td>
+                <td class="text-center align-middle"><span class="text-danger">$${producto.precio} ARS</span></td>
+                <td class="text-end align-middle"><button class="btn btn-danger btn-sm" onclick="eliminarProducto(${producto.id});">Eliminar <i class="bi bi-trash"></i></button></td>
+                </tr>`;
+            } else {
+                console.error('Producto no válido en el carrito:', producto);
+            }
         }
 
         contenidoHTML += `</tbody>
@@ -26,7 +31,7 @@ function recorrerCarrito() {
         <h3>No se encontraron Productos en el Carrito!</h3>
         </div>`;
     }
-document.getElementById("contenido").innerHTML = contenidoHTML;
+    document.getElementById("contenido").innerHTML = contenidoHTML;
 }
 
 recorrerCarrito();
