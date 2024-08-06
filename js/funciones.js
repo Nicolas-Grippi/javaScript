@@ -111,45 +111,47 @@ function guardarProducto(id) {
     localStorage.setItem("producto", JSON.stringify(id));
 }
 
-
-//Aca elegi este consumo de API externa la cual me da la hora en tiempo real
-async function obtenerHora() {
+async function obtenerDatos() {
     try {
-        const respuesta = await fetch('https://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires');
+        const respuesta = await fetch('data/data.json');
+        if (!respuesta.ok) {
+            throw new Error('Error en la red');
+        }
         const datos = await respuesta.json();
-        const dateTime = new Date(datos.datetime);
-        const horas = dateTime.getHours().toString().padStart(2, '0');
-        const minutos = dateTime.getMinutes().toString().padStart(2, '0');
-        const segundos = dateTime.getSeconds().toString().padStart(2, '0');
-        document.getElementById('reloj').textContent = `${horas}:${minutos}:${segundos}`;
+        return datos;
     } catch (error) {
-        console.error('Error al obtener la hora:', error);
-        document.getElementById('reloj').textContent = 'Error al obtener la hora';
+        console.error('Error al obtener los datos:', error);
+        return null;
     }
 }
 
 function actualizarReloj() {
-    obtenerHora();
-    setInterval(obtenerHora, 1000); 
+    // Obtiene la hora actual del sistema
+    const ahora = new Date();
+    const opcionesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const opcionesFecha = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+    const horaActual = ahora.toLocaleTimeString('es-AR', opcionesHora);
+    const fechaActual = ahora.toLocaleDateString('es-AR', opcionesFecha);
+    const relojElement = document.getElementById('reloj');
+
+    // Actualiza el contenido del reloj
+    relojElement.textContent = `Hora: ${horaActual} | Fecha: ${fechaActual}`;
+
+    // Aplica estilos
+    relojElement.style.fontSize = '2em';
+    relojElement.style.fontWeight = 'bold';
+    relojElement.style.color = '#ff5733'; // Color de texto
+    relojElement.style.textAlign = 'center'; // Alineación del texto
+    relojElement.style.padding = '20px';
+    relojElement.style.border = '2px solid #333'; // Borde
+    relojElement.style.borderRadius = '10px'; // Bordes redondeados
+    relojElement.style.backgroundColor = '#f0f0f0'; // Fondo
+    relojElement.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Sombra
 }
-document.addEventListener('DOMContentLoaded', (event) => {
-    const reloj = document.getElementById('reloj');
-    const container = document.getElementById('reloj-container');
 
-   
-    container.style.display = 'flex';
-    container.style.justifyContent = 'center';
-    container.style.alignItems = 'center';
-    container.style.height = '80px';
+// Actualiza el reloj cada segundo
+setInterval(actualizarReloj, 1000);
 
-    reloj.style.fontSize = '2em';
-    reloj.style.fontWeight = 'bold';
-    reloj.style.margin = '20px';
-    reloj.style.padding = '10px 50px';
-    reloj.style.border = '2px solid #000';
-    reloj.style.borderRadius = '10px';
-    reloj.style.backgroundColor = '#f0f0f0';
-    reloj.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.1)';
-
-    actualizarReloj(); 
-});
+// Inicializa el reloj cuando se carga la página
+document.addEventListener('DOMContentLoaded', actualizarReloj);
