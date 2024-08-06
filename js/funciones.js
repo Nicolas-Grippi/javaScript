@@ -113,10 +113,9 @@ function guardarProducto(id) {
 
 
 //Aca elegi este consumo de API externa la cual me da la hora en tiempo real
-
 async function obtenerHora() {
     try {
-        const respuesta = await fetch('http://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires');
+        const respuesta = await fetch('https://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires');
         const datos = await respuesta.json();
         const dateTime = new Date(datos.datetime);
         const horas = dateTime.getHours().toString().padStart(2, '0');
