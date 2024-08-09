@@ -10,7 +10,6 @@ function recorrerCarrito() {
         </tr>`;
 
         for (const producto of carrito) {
-            
             if (producto && producto.imagen) {
                 contenidoHTML += `<tr>
                 <td><img src="images/${producto.imagen}" alt="${producto.nombre}" width="48"></td>
@@ -24,7 +23,10 @@ function recorrerCarrito() {
         }
 
         contenidoHTML += `</tbody>
-        </table>`;
+        </table>
+        <div class="text-end">
+            <button class="btn btn-success btn-lg" onclick="finalizarCompra();">Finalizar Compra <i class="bi bi-check-circle"></i></button>
+        </div>`;
     } else {
         contenidoHTML = `<div class="alert alert-dark my-5 text-center" role="alert">
         <h2>❌</h2>
@@ -33,5 +35,31 @@ function recorrerCarrito() {
     }
     document.getElementById("contenido").innerHTML = contenidoHTML;
 }
+
+function finalizarCompra() {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Quieres finalizar la compra?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, finalizar compra!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            window.location.href = "index.html";
+
+
+            Swal.fire(
+                '¡Compra realizada!',
+                'Tu compra ha sido finalizada con éxito.',
+                'success'
+            )
+        }
+    });
+}
+
 
 recorrerCarrito();

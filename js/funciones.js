@@ -136,7 +136,7 @@ function actualizarReloj() {
     const relojElement = document.getElementById('reloj');
 
     // Actualiza el contenido del reloj
-    relojElement.textContent = `Hora: ${horaActual} | Fecha: ${fechaActual}`;
+    relojElement.textContent = `Hora: ${horaActual}  Fecha: ${fechaActual}`;
 
     // Aplica estilos
     relojElement.style.fontSize = '2em';
@@ -148,6 +148,8 @@ function actualizarReloj() {
     relojElement.style.borderRadius = '10px'; // Bordes redondeados
     relojElement.style.backgroundColor = '#f0f0f0'; // Fondo
     relojElement.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Sombra
+    relojElement.style.width = '390px'; // Ajusta el ancho del elemento
+    relojElement.style.margin = '0 auto'; // Centra el elemento
 }
 
 // Actualiza el reloj cada segundo
