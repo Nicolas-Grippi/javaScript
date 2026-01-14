@@ -1,99 +1,107 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Escaloneta</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Escaloneta | Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" href="./images/logoafa.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <style>
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+        body { background-color: #f8f9fa; }
+        .navbar { border-bottom: 3px solid #0052a1; }
+        .card:hover { transform: translateY(-5px); transition: 0.3s; }
+    </style>
 </head>
-
 <body>
 
-
-
-    <div class="container my-5">
-        <div clas="row">
-            <div class="col">
-                <a href="index.html">
-                    <img src="./images/logoafa.png" alt="logoafa" width="55">
-                </a>
-            </div>
-            <div class="col">
-                <ul class="nav justify-content-center fw-bold fs-4">
-                    <li class="nav-item">
-                        <a class="nav-link active text-dark" aria-current="page" href="index.html">Camisetas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Outlet</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Sobre Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Contacto</a>
-                    </li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="./images/logoafa.png" width="50"></a>
+            <div id="reloj" class="d-none d-lg-block text-muted small"></div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto fw-bold">
+                    <li class="nav-item"><a class="nav-link text-dark" href="#productos">Camisetas</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="#outlet">Outlet</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="#nosotros">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="#contacto">Contacto</a></li>
                 </ul>
-
-            </div>
-
-
-            <div id="reloj">Cargando...</div>
-
-
-            <div class="col text-end">
-                <a href="carrito.html" class="text-dark text-decoration-none fw-bold fs-5">
-                    <i class="bi bi-cart-plus"></i> (<span id="totalCarrito"></span>)
+                <a href="carrito.html" class="btn btn-dark position-relative">
+                    <i class="bi bi-cart-plus"></i>
+                    <span id="totalCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
                 </a>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="container my-5">
-        <div id="contenido" class="row">
+    <section id="productos" class="container my-5">
+        <h2 class="text-center fw-bold mb-4">Nuestras Camisetas</h2>
+        <div id="contenido" class="row g-4"></div>
+    </section>
+
+    <section id="outlet" class="container my-5">
+        <div class="bg-danger p-5 rounded-4 text-white text-center shadow">
+            <h2 class="fw-bold">ZONA OUTLET - 25% OFF</h2>
+            <p>Aprovechá las ofertas en selecciones internacionales.</p>
+            <button class="btn btn-light btn-lg fw-bold rounded-pill" onclick="mostrarOutlet()">VER OFERTAS</button>
+        </div>
+    </section>
+
+    <section id="nosotros" class="container my-5 pt-5">
+    <div class="row align-items-center bg-white p-4 p-md-5 rounded-4 shadow-sm">
+        <div class="col-md-7">
+            <h2 class="fw-bold mb-4" style="color: #0052a1;">Nosotros</h2>
+            <p class="fs-5 text-dark">
+                En <strong>Escaloneta</strong> nos apasiona el fútbol tanto como a vos. 
+                Nacimos con el sueño de acercar la indumentaria oficial a cada rincón del país, 
+                celebrando la gloria de nuestra Selección.
+            </p>
+            <p class="text-muted">
+                Somos distribuidores oficiales de indumentaria deportiva con el foco puesto en la 
+                calidad, la confianza y la pasión albiceleste en cada entrega. Trabajamos día a día 
+                para que cada hincha pueda llevar los colores del campeón con orgullo y excelencia garantizada.
+            </p>
+            <p class="fw-bold text-primary">¡Vestite como un Campeón del Mundo!</p>
+        </div>
+        <div class="col-md-5 text-center">
+            <img src="./images/logoafa.png" class="img-fluid opacity-75 mt-4 mt-md-0" width="250" alt="AFA Logo">
         </div>
     </div>
+</section>
 
-
-    <div class="container-fluid my-5 border-top">
-        <div class="container my-5">
-            <div class="row">
-                <div class="col">
-                    <p>Escaloneta - Desarrollado por Nicolas Grippi</p>
-                </div>
-                <div class="col">
-                    <p>Nuestras redes:
-                        <a href="https://www.instagram.com/nicogrippi/" target="_blank"><img src="/images/Instagram.png"
-                                alt="" class="img-fluid" style="width: 30px; height: 30px;"></a>
-                        <a href="https://wa.me/+5492616634475" target="_blank"><img src="/images/WhatsApp.png" alt=""
-                                class="img-fluid" style="width:  30px; height: 30px;"></a>
-                        <a href="https://www.facebook.com/?locale=es_LA" target="_blank"><img src="/images/Facebook.png"
-                                alt="" class="img-fluid" style="width:  30px; height:  30px;">
-                        </a>
-
-                    </p>
+    <section id="contacto" class="container my-5 pt-5">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <form id="formContacto" class="bg-white p-4 rounded shadow-sm">
+                    <h4 class="fw-bold mb-3">Contacto</h4>
+                    <input type="text" class="form-control mb-2" placeholder="Nombre" required>
+                    <input type="email" class="form-control mb-2" placeholder="Email" required>
+                    <textarea class="form-control mb-3" placeholder="Mensaje" required></textarea>
+                    <button class="btn btn-primary w-100 fw-bold">ENVIAR</button>
+                </form>
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <div class="ps-md-4">
+                    <h4>Escaloneta Mendoza</h4>
+                    <p><i class="bi bi-whatsapp"></i> +54 9 261 663-4475</p>
+                    <p><i class="bi bi-geo-alt"></i> Mendoza, Argentina</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/funciones.js"></script>
     <script src="js/main.js"></script>
-
     <script>
-        document.body.style.backgroundColor = 'lightblue'; 
+        document.getElementById('formContacto').addEventListener('submit', function(e) {
+            e.preventDefault();
+            Swal.fire("Enviado", "Nos contactaremos pronto", "success");
+            this.reset();
+        });
     </script>
-
 </body>
-
 </html>
