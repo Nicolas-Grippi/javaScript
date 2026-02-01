@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div id="listaCarrito" class="bg-white p-3 rounded shadow-sm">
-                    </div>
+                </div>
             </div>
             
             <div class="col-lg-4">
@@ -35,24 +35,30 @@
     </div>
 
     <script src="js/funciones.js"></script>
+    
     <script>
+        // 1. FUNCIÓN PARA MOSTRAR LOS PRODUCTOS
         function recorrerCarrito() {
             const carrito = cargarCarrito();
             const contenedor = document.getElementById("listaCarrito");
             let total = 0;
 
             if (carrito.length === 0) {
-                contenedor.innerHTML = `<p class="text-center p-5">El carrito está vacío :(</p>`;
+                contenedor.innerHTML = `
+                <div class="text-center p-5">
+                    <i class="bi bi-cart-x fs-1 text-muted"></i>
+                    <p class="mt-3">El carrito está vacío :(</p>
+                </div>`;
                 document.getElementById("precioTotal").innerText = "$0";
                 return;
             }
 
             let html = "";
-            carrito.forEach((item, index) => {
+            carrito.forEach((item) => {
                 total += item.precio;
                 html += `
                 <div class="d-flex align-items-center border-bottom py-3">
-                    <img src="images/${item.imagen}" width="80" class="rounded me-3">
+                    <img src="images/${item.imagen}" width="80" class="rounded me-3" onerror="this.src='./images/logoafa.png'">
                     <div class="flex-grow-1">
                         <h6 class="mb-0 fw-bold">${item.nombre}</h6>
                         <small class="text-muted">$${item.precio.toLocaleString('es-AR')}</small>
@@ -67,22 +73,60 @@
             document.getElementById("precioTotal").innerText = `$${total.toLocaleString('es-AR')}`;
         }
 
+        // 2. FUNCIÓN PARA ELIMINAR UN PRODUCTO POR ID
+        function eliminarProducto(id) {
+            let carrito = cargarCarrito();
+            // Buscamos el índice para borrar solo uno en caso de repetidos
+            const index = carrito.findIndex(item => item.id == id);
+            
+            if (index !== -1) {
+                carrito.splice(index, 1);
+                guardarCarrito(carrito);
+                recorrerCarrito(); // Actualiza la lista
+                if (typeof recorrerBotonCarrito === 'function') recorrerBotonCarrito(); // Actualiza el badge
+            }
+        }
+
+        // 3. FUNCIÓN PARA VACIAR TODO EL CARRITO
+        function vaciarCarrito() {
+            localStorage.removeItem("carrito");
+            recorrerCarrito();
+            if (typeof recorrerBotonCarrito === 'function') recorrerBotonCarrito();
+        }
+
+        // 4. FUNCIÓN PARA FINALIZAR LA COMPRA
         function finalizarCompra() {
             const carrito = cargarCarrito();
-            if(carrito.length === 0) return Swal.fire("Carrito vacío", "", "error");
+            if(carrito.length === 0) {
+                return Swal.fire("Carrito vacío", "Agrega algunos productos antes de finalizar", "error");
+            }
 
             Swal.fire({
-                title: "¡Compra exitosa!",
-                text: "Gracias por elegir a la Escaloneta",
-                icon: "success"
-            }).then(() => {
-                vaciarCarrito();
-                window.location.href = "index.html";
+                title: "¿Deseas confirmar la compra?",
+                text: "Se procesará tu pedido de la Escaloneta",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Sí, comprar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "¡Compra exitosa!",
+                        text: "Gracias por tu compra.",
+                        icon: "success"
+                    }).then(() => {
+                        vaciarCarrito();
+                        window.location.href = "index.html";
+                    });
+                }
             });
         }
 
-        // Inicializar la vista
-        document.addEventListener("DOMContentLoaded", recorrerCarrito);
+        // Inicializar al cargar la página
+        document.addEventListener("DOMContentLoaded", () => {
+            recorrerCarrito();
+            if (typeof recorrerBotonCarrito === 'function') recorrerBotonCarrito();
+        });
     </script>
 </body>
 </html>

@@ -37,8 +37,17 @@ function agregarProducto(id) {
 }
 
 function recorrerBotonCarrito() {
-    const badge = document.getElementById("totalCarrito");
-    if (badge) badge.innerText = cargarCarrito().length;
+    // Buscamos el elemento HTML que tiene el número (asegúrate que tu HTML tenga este ID)
+    const botonCarrito = document.getElementById("totalCarrito");
+    
+    if (botonCarrito) {
+        const carrito = cargarCarrito();
+        // Calculamos la cantidad total de productos
+        const total = carrito.length;
+        
+        // Si hay productos, mostramos el número. Si no, podemos poner 0.
+        botonCarrito.innerText = total;
+    }
 }
 
 function guardarProducto(id) {

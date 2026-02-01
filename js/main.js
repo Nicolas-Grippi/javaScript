@@ -53,7 +53,7 @@ function generarCardHTML(item) {
 
 document.addEventListener('DOMContentLoaded', () => {
     recorrerCamisetas();
-    recorrerBotonCarrito();
+    recorrerCarrito();
     actualizarReloj();
     setInterval(actualizarReloj, 1000);
 });
